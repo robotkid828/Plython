@@ -1,7 +1,10 @@
 def LegacyGithubImport(Module, Creator, ImportName):
-  #This only works with legacy modules, all other modules require GIT and such, and for now, I'm not going through that again.
   import os
   os.system("pip install git+https://github.com/" + str(Creator) + "/" + str(Module) + "#egg=" + str(ImportName))
+
+def GithubImport(Module, Creator):
+  import os
+  os.system("pip install git+https://github.com/" + str(Creator) + "/" + str(Module))
 
 def SilentExit():
   import time
@@ -24,16 +27,16 @@ def SearchDict(Dict, Key, DictSubLevels):
     Counter2 = 0
     Counter1 = 0
     for x in list(Indexes[Counter3]):
-      for y in Indexes[Counter3][Counter2]:
-        try:
-          if str(type(Indexes[Counter3][Counter2])) == "<class 'dict'>":
+      if str(type(Indexes[Counter3][Counter2])) == "<class 'dict'>":
+        for y in Indexes[Counter3][Counter2]:
+          try:
             IndexesAppend.update({Counter1: Indexes[Counter3][Counter2][y]})
             AllIndexes.update({y: Indexes[Counter3][Counter2][y]})
             Counter1 += 1
             Counter4 += 1
-        except:
-          pass
-      Counter2 += 1
+          except:
+            pass
+        Counter2 += 1
     Counter3 += 1
     Indexes.update({Counter3: IndexesAppend})
     IndexesAppend = {}
